@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import './styles.css';
 
 function DevForm({ onSubmit }) {
@@ -31,29 +32,32 @@ function DevForm({ onSubmit }) {
             longitude
         });
 
-        setGitHubUser('');
-        setTechs('');
+        setGitHubUser("");
+        setTechs("");
     }
 
     return (
         <form onSubmit={handSubmit}>
-            <div className="input-block">
-                <label htmlFor="gitUserName">Usuário do GitHub</label>
-                <input
-                    name="gitUserName"
-                    id="gitUserName"
-                    required
-                    onChange={e => setGitHubUser(e.target.value)} />
+            <div className="input-group-tablet">
+                <div className="input-block">
+                    <label htmlFor="gitUserName">Usuário do GitHub</label>
+                    <input
+                        name="gitUserName"
+                        id="gitUserName"
+                        required
+                        value={gitHubUser}
+                        onChange={e => setGitHubUser(e.target.value)} />
+                </div>
+                <div className="input-block">
+                    <label htmlFor="techs">Tecnologias</label>
+                    <input
+                        name="techs"
+                        id="techs"
+                        required
+                        value={techs}
+                        onChange={e => setTechs(e.target.value)} />
+                </div>
             </div>
-            <div className="input-block">
-                <label htmlFor="techs">Tecnologias</label>
-                <input
-                    name="techs"
-                    id="techs"
-                    required
-                    onChange={e => setTechs(e.target.value)} />
-            </div>
-
             <div className="input-group">
                 <div className="input-block">
 
