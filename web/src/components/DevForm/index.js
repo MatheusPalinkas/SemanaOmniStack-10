@@ -37,6 +37,8 @@ function DevForm({ onSubmit }) {
     }
 
     return (
+        <>
+        <strong >Cadastrar</strong>
         <form onSubmit={handSubmit}>
             <div className="input-group-tablet">
                 <div className="input-block">
@@ -85,6 +87,7 @@ function DevForm({ onSubmit }) {
                 type="submit">
                 Salvar</button>
         </form>
+        </>
     );
 }
 

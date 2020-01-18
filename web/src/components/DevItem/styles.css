@@ -2,7 +2,60 @@ li.dev-item{
     background: #FFF;
     box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.02);
     border-radius: 2px;
-    padding: 20px;
+    padding: 5px 5px 20px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+li.dev-item aside{
+    max-width: 55px;
+    background: none;
+    box-shadow: 0 0 0 0;
+    border-radius: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+li.dev-item section{
+    padding-top: 20px;
+}
+li.dev-item aside .btn {
+    height: 50px;
+    width: 50px;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    cursor: pointer;
+
+    transition: all .1s;
+}
+li.dev-item aside img.btn {
+    padding: 9px;
+}
+.btn.destroy{
+    overflow: hidden;
+}
+li.dev-item aside .btn:hover {
+    transform: scale(1.09);
+}
+aside .destroy:hover aside .destroy div.line{
+    background: #584FA4;
+}
+li.dev-item  aside .destroy div.line{
+    height: 5px;
+    background:  #8E4DFF;
+    width: 30px;
+    border-radius: 2px;
+    position: absolute;
+}
+li.dev-item  aside .destroy div.line:nth-last-of-type(1){
+    transform: rotate(45deg);
+}
+li.dev-item  aside .destroy div.line:nth-last-of-type(2){
+    transform: rotate(-45deg);
 }
 li.dev-item header{
     display: flex;
@@ -15,45 +68,9 @@ li.dev-item header img{
     width: 54px;
     border-radius: 50%;
 }
-li.dev-item  header .btn-destroy{
-    height: 50px;
-    width: 50px;
-    position: absolute;
-    top: -10px;
-    background: none;
-    border: none;
-    display: flex;
-    justify-content: center;
-    top: -20px;
-    right: -15px;
-    padding: 5px;
-    cursor: pointer;
-    overflow: hidden;
-    transition: all .1s;
-}
-li.dev-item  header .btn-destroy:hover {
-    transform: scale(1.09);
-}
-header .btn-destroy:hover header .btn-destroy div.line{
-    background: #5A2EAC;
-}
-li.dev-item  header .btn-destroy div.line{
-    height: 5px;
-    background:  #8E4DFF;
-    width: 30px;
-    border-radius: 2px;
-    position: absolute;
-}
-li.dev-item  header .btn-destroy div.line:nth-last-of-type(1){
-    transform: rotate(45deg);
-}
-li.dev-item  header .btn-destroy div.line:nth-last-of-type(2){
-    transform: rotate(-45deg);
-}
 li.dev-item header .user-info{
     margin-left: 10px;
 }
-
 .user-info strong{
     display: block;
     font-size: 16px;

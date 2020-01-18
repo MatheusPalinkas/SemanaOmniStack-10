@@ -11,7 +11,7 @@ html, body, #root{
 }
 
 body{
-    background: #E5E6F0;
+    background: url('./content/map.webp') repeat center;
     -webkit-font-smoothing: antialiased;
 }
 body, input, button{

@@ -10,9 +10,12 @@ import './Sidebar.css';
 import './Main.css';
 import Swal from 'sweetalert2'
 
+
 //Componentes
 import DevItem from './components/DevItem';
 import DevForm from './components/DevForm';
+
+
 
 
 // Componente: bloco isolado de Html, CSS e js, o qual não interfere no restante da aplicação
@@ -70,7 +73,7 @@ function App() {
     //JSX (JavaScript + HTML)
     <div id="App">
       <aside>
-        <strong>Cadastrar</strong>
+
         <DevForm onSubmit={handAddDev} />
       </aside>
       <main>
