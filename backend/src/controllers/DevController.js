@@ -18,7 +18,7 @@ module.exports = {
             const response = await api.get(`/${gitHub_username}`);
 
             const { avatar_url, bio } = response.data;
-            const techsArray = parseStringAsArray(techs);
+            const techsArray = parseStringAsArray(techs.toUpperCase());
             const location = {
                 type: 'Point',
                 coordinates: [longitude, latitude]
@@ -46,14 +46,14 @@ module.exports = {
     async update(req, res) {
         const { id } = req.params;
         const { name, techs, latitude, longitude, avatar_url, bio } = req.body;
-        const techsArray = (!techs && typeof (techs) != 'undefined') ? parseStringAsArray(techs) : techs;
+        const techsArray = (!techs && typeof (techs) != 'undefined') ? parseStringAsArray(techs.toUpperCase()) : techs.toUpperCase();
 
         let location = {
             type: 'Point',
             coordinates: [longitude, latitude]
         };
-
         const oldDev = await Dev.findOne({ _id: id });
+
         oldDev.name = name;
         oldDev.techs = techsArray;
         oldDev.avatar_url = avatar_url;

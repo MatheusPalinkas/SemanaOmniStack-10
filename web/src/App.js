@@ -9,6 +9,7 @@ import './App.css';
 import './Sidebar.css';
 import './Main.css';
 import Swal from 'sweetalert2'
+import swal from '@sweetalert/with-react';
 
 
 //Componentes
@@ -68,6 +69,12 @@ function App() {
     return IsDestroy;
   };
 
+  async function updateDev(data, id) {
+    await api.put(`/devs/${id}`, data);
+    setDevs(devs);
+    swal.close();
+  };
+
 
   return (
     //JSX (JavaScript + HTML)
@@ -79,7 +86,12 @@ function App() {
       <main>
         <ul>
           {
-            devs.map(dev => <DevItem dev={dev} key={dev._id} DelDev={DelDev} />)
+            devs.map(dev => <DevItem 
+                                dev={dev} 
+                                key={dev._id} 
+                                DelDev={DelDev} 
+                                onSubmit={updateDev}
+                            />)
           }
         </ul>
       </main>

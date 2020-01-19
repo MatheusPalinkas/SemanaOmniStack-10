@@ -10,7 +10,7 @@ import thanos from './thanos.gif';
 import userEdit from './userEdit.png';
 
 
-function DevItem({ dev, DelDev }) {
+function DevItem({ dev, DelDev, onSubmit }) {
     async function destroyDev() {
         Swal.fire({
             title: `Deseja excluir ?`,
@@ -48,7 +48,11 @@ function DevItem({ dev, DelDev }) {
         swal({
             buttons: false,
             content: (
-                <UpdateFormDev />
+                <>
+                    <UpdateFormDev
+                        dev={dev}
+                        onSubmit={onSubmit} />
+                </>
             )
         }
         )

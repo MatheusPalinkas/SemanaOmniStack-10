@@ -57,7 +57,6 @@ form .input-block input{
     border-bottom: 1px solid #eee;
     transition: all 0.5s;
 }
-
  form .input-block input:hover,  form .input-block input:focus{
     border-bottom: 2px solid #7D40E7;
 } 
@@ -70,25 +69,6 @@ form div.file{
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-form div.file img{
-    width: 60px;
-    position: absolute;
-    z-index: -1;
-    transition: all .3s;
-}
-form div.file:hover img.up{
-    transform: translateY(-6px);
-}
-form div.file:hover,  form div.file:focus{
-    border: 2px solid #7D40E7;
-}
-div.file input[type=file]{
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    position: relative;
 }
  form button[type=submit]{
     width: 100%;
@@ -111,10 +91,11 @@ div.file input[type=file]{
         margin-top: 20px;
         display: grid;
         gap: 20px;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
     }
     form .input-group-tablet .input-block{
         margin-top: 20px;
+
      }
 }
 @media screen and (max-width: 650px){

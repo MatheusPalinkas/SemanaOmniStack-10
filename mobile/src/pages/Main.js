@@ -4,9 +4,12 @@ import MapView, { Marker, Callout } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
 
+import api from '../services/api';
 
 function Main({ navigation }) {
     const [currentRegion, setCurrentRegion] = useState(null);
+    const [devs, setDevs] = useState([]);
+    const [techs, setTechs] = useState("");
 
     useEffect(() => {
         async function loadInitialPosition() {
@@ -26,12 +29,26 @@ function Main({ navigation }) {
                 });
             }
         }
-
         loadInitialPosition();
     }, []);
 
     if (!currentRegion) {
         return null;
+    }
+
+
+    async function loadDevs() {
+        const { latitude, longitude } = currentRegion;
+
+        const response = await api.get(`/search`, {
+            params: {
+                latitude,
+                longitude,
+                techs: techs.toUpperCase(),
+            }
+        });
+
+        setDevs(response.data.devs);
     }
 
     function handRegionChanged(region) {
@@ -43,24 +60,27 @@ function Main({ navigation }) {
                 onRegionChangeComplete={handRegionChanged}
                 style={styles.map}
                 initialRegion={currentRegion}>
-                <Marker
-                    style={styles.teste}
-                    coordinate={{ latitude: -23.9499042, longitude: -46.4489193 }}>
-                    <Image
-                        style={styles.avatar}
-                        source={{ uri: 'https://avatars3.githubusercontent.com/u/47289940?v=4' }} />
-                    <Callout onPress={() => {
-                        //navegação
-                        navigation.navigate('Profile', { github_username: 'josuefonseca' });
+                {devs.map(dev => (
+                    <Marker
+                        key={dev._id}
+                        style={styles.teste}
+                        coordinate={{ latitude: dev.location.coordinates[1], longitude: dev.location.coordinates[0] }}>
+                        <Image
+                            style={styles.avatar}
+                            source={{ uri: dev.avatar_url }} />
+                        <Callout onPress={() => {
+                            //navegação
+                            navigation.navigate('Profile', { github_username: dev.gitHub_username });
 
-                    }}>
-                        <View style={styles.callout}>
-                            <Text style={styles.devName}>Josue</Text>
-                            <Text style={styles.devBio}>Apenas um dev</Text>
-                            <Text style={styles.devTechs}> C#, Java</Text>
-                        </View>
-                    </Callout>
-                </Marker>
+                        }}>
+                            <View style={styles.callout}>
+                                <Text style={styles.devName}>{dev.name}</Text>
+                                <Text style={styles.devBio}>{dev.bio}</Text>
+                                <Text style={styles.devTechs}>{dev.techs.join(', ')}</Text>
+                            </View>
+                        </Callout>
+                    </Marker>
+                ))}
             </MapView>
             <View style={styles.searchForm}>
                 <TextInput
@@ -68,9 +88,12 @@ function Main({ navigation }) {
                     placeholder="Buscar devs por tecnologias"
                     placeholderTextColor="#999"
                     autoCapitalize="words"
-                    autoCorrect={false} />
-                <TouchableOpacity style={styles.loadButton}
-                    onPress={() => { }}>
+                    autoCorrect={false}
+                    value={techs}
+                    onChangeText={setTechs} />
+                <TouchableOpacity
+                    style={styles.loadButton}
+                    onPress={loadDevs}>
                     <MaterialIcons
                         name="my-location"
                         size={20}
@@ -89,13 +112,13 @@ const styles = StyleSheet.create({
         width: 54,
         height: 54,
         borderRadius: 15,
-        borderWidth: 4,
+        borderWidth: 2,
+        borderColor: "#8e4dff",
         backgroundColor: '#FFF'
     },
     teste: {
         width: 60,
         height: 60,
-        padding: 3,
 
     },
     callout: {

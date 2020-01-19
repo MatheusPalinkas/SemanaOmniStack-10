@@ -19,6 +19,9 @@ li.dev-item aside{
 }
 li.dev-item section{
     padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 li.dev-item aside .btn {
     height: 50px;
@@ -94,7 +97,17 @@ li.dev-item a {
     cursor: pointer;
     text-decoration: none;
     transition: all 1s;
+    height: 20px;
+    padding: 5px;
 }
 li.dev-item a:hover {
     color: #5A2EAC;
+}
+li.dev-item a:hover:after{
+    content: '';
+    display: block;
+    height: 2px;
+    margin-top: 2px;
+    width: 60px;
+    background: #8E4DFF;
 }

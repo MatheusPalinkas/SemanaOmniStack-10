@@ -1,20 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './styles.css';
-import cloud from './cloud.png';
 
-function UpdateFormDev() {
+
+function UpdateFormDev({ onSubmit, dev }) {
+    const [latitude, setLatitude] = useState(dev.location.coordinates[1]);
+    const [longitude, setLongitude] = useState(dev.location.coordinates[0]);
+    const [name, setName] = useState(dev.name);
+    const [avatarUrl, setAvatarUrl] = useState(dev.avatar_url);
+    const [bio, setBio] = useState(dev.bio);
+    const [techs, setTechs] = useState(dev.techs);
+
+    async function handSubmit(e) {
+        e.preventDefault();
+
+        await onSubmit({
+            name, 
+            bio,
+            avatar_url: avatarUrl,
+            latitude,
+            longitude,
+            techs: techs.join(', ')
+        }, dev._id);
+
+    }
+    function parseStringAsArray(arrayAsString){
+        return arrayAsString.split(',').map(itenString => itenString.trim());
+    }
     return (
         <div>
             <strong>Atualizar</strong>
-            <form >
-                <div className="input-group-tablet">
+            <form onSubmit={handSubmit}>
+                <div >
                     <div className="input-block">
                         <label htmlFor="nameDev">Nome</label>
                         <input
                             name="nameDev"
                             id="nameDev"
-                            required
+                            value={name}
+                            onChange={e => setName(e.target.value)}
                         />
                     </div>
                     <div className="input-block">
@@ -22,7 +46,8 @@ function UpdateFormDev() {
                         <input
                             name="techs"
                             id="techs"
-                            required
+                            value={techs}
+                            onChange={e => setTechs(parseStringAsArray(e.target.value))}
                         />
                     </div>
                 </div>
@@ -35,7 +60,8 @@ function UpdateFormDev() {
                             type="number"
                             name="lat"
                             id="lat"
-                            required
+                            value={latitude}
+                            onChange={e => setLatitude(e.target.value)}
                         />
                     </div>
 
@@ -45,32 +71,31 @@ function UpdateFormDev() {
                             type="number"
                             name="log"
                             id="log"
-                            required
+                            value={longitude}
+                            onChange={e => setLongitude(e.target.value)}
                         />
                     </div>
                 </div>
 
-                <div className="input-group-tablet">
+                <div >
+                    <div className="input-block">
+                        <label htmlFor="avatarDev">Link Avatar</label>
+                        <input
+                            name="avatarDev"
+                            id="avatarDev"
+                            value={avatarUrl}
+                            onChange={e => setAvatarUrl(e.target.value)}
+                        />
+                    </div>
 
                     <div className="input-block">
                         <label htmlFor="bioDev">bio</label>
                         <textarea
                             name="bioDev"
                             id="bioDev"
-                            required
+                            value={bio}
+                            onChange={e => setBio(e.target.value)}
                         ></textarea>
-                    </div>
-                    <div className="input-block">
-                        <label htmlFor="avatarDev">Avatar</label>
-                        <div className="file">
-                            <input
-                                name="avatarDev"
-                                id="avatarDev"
-                                required
-                                type="file"
-                            />
-                            <img className="up" src={cloud} alt="icone de uma nuvem para upload" />
-                        </div>
                     </div>
                 </div>
 
