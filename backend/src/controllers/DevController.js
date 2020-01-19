@@ -1,6 +1,7 @@
 const api = require('../services/api');
 const Dev = require('../models/Dev');
 const parseStringAsArray = require('./utils/parseStringAsArray');
+const { findConnection, sendMessage }  = require('../webSocket');
 
 // index, show, store, update e destroy
 
@@ -35,6 +36,13 @@ module.exports = {
                 techs: techsArray,
                 location
             });
+
+            //Filtrar conexões que estão a no maximo 10km e possui ao menos uma das techs
+            const sendSocketMessageTo = findConnection({
+                latitude,
+                longitude,
+            }, techsArray);
+            sendMessage(sendSocketMessageTo, 'new-dev', dev);
         }
 
         return res.json(dev)
